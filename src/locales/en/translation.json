@@ -1,0 +1,30 @@
+{
+  "brand": "Shlack",
+  "channels": "Channels",
+  "addChannel": "Add channel",
+  "removeChannel": "Remove channel",
+  "renameChannel": "Rename channel",
+  "formatDate": "{{date, LLL}}",
+  "enterNewChannelName": "Enter name for new channel",
+  "enterMessage": "Enter message",
+  "ok": "Ok",
+  "cancel": "Cancel",
+  "submit": "Submit",
+  "rename": "Rename",
+  "delete": "Delete",
+  "confirmChannelRemove": "Are you sure you want to remove the channel {{name}}?",
+  "sendMessageShortCut": "Send message: {{shortcut}}",
+  "errors": {
+    "oops": "Oops, something went wrong...",
+    "required": "Field could not be empty",
+    "pageNotFound": "Page not found",
+    "alredyExists": "Entered value already exists."
+  },
+  "authorization": "Authorization",
+  "loginForm": {
+    "loginLabel": "Login",
+    "loginPlaceholder": "Enter your login",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password"
+  }
+}
