@@ -5,4 +5,4 @@ import debug from 'debug'
  * @param {string=} namespace Namespace name.
  * @returns {Function} Logger function.
  */
-export default (namespace: string = ''): Function => debug(`chat:${namespace}`)
+export default (namespace: string = ''): Function => debug(`immo:${namespace}`)

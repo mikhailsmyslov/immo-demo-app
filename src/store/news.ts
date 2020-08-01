@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
-import routes from '../routes'
+import { getNews, GetNewsParams } from '../api'
 
 interface NewsState {
   isLoading: boolean
@@ -27,11 +26,11 @@ const {
   actions: { addNews, setIsLoading }
 } = slice
 
-const fetchNews = (token: string) => async (dispatch: Function) => {
+const fetchNews = (params: GetNewsParams) => async (dispatch: Function) => {
   dispatch(setIsLoading(true))
-  const response = await axios
-    .get(routes.newsPath(), { params: { token } })
-    .finally(() => dispatch(setIsLoading(false)))
+  const response = await getNews(params).finally(() =>
+    dispatch(setIsLoading(false))
+  )
   const news = response.data
   dispatch(addNews(news))
 }

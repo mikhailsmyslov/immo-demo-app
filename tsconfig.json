@@ -15,5 +15,5 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src", "__tests__/App.test.tsx"]
+  "include": ["src", "__tests__", "server"]
 }

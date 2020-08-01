@@ -3,6 +3,9 @@ import { Container, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import LoginForm from './LoginForm'
 import { useTranslation } from 'react-i18next'
+import { useSnackbar } from 'notistack'
+import { useDispatch } from 'react-redux'
+import { actions } from '../store'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,12 +29,23 @@ const useStyles = makeStyles((theme: Theme) =>
 const LoginContainer = () => {
   const classes = useStyles()
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const { enqueueSnackbar } = useSnackbar()
+  const onSubmit = (params: any) => dispatch(actions.performLogin(params))
+  const onFailure = (err: Error) => {
+    enqueueSnackbar(err.message, { variant: 'error' })
+  }
+
   return (
     <Container className={classes.root}>
       <Typography variant="h4" className={classes.header}>
         {t('authorization')}
       </Typography>
-      <LoginForm className={classes.form} />
+      <LoginForm
+        className={classes.form}
+        onSubmit={onSubmit}
+        onFailure={onFailure}
+      />
     </Container>
   )
 }

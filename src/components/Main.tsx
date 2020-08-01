@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const Content = (props: Props) => {
+const Main = (props: Props) => {
   const { className } = props
   const classes = useStyles()
   const rootClasses = cn(
@@ -51,4 +51,4 @@ const Content = (props: Props) => {
   )
 }
 
-export default Content
+export default Main

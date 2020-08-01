@@ -11,6 +11,9 @@ import { useTranslation } from 'react-i18next'
 import { Tabs, Tab } from '@material-ui/core'
 import navigation, { navBarTabsSet } from '../navigation'
 import { Link, useHistory, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
+import { PROTECTED_TYPE } from '../constants'
 
 interface Props {
   children?: React.ReactElement
@@ -41,12 +44,12 @@ const HideOnScroll = (props: Props) => {
   )
 }
 
-const NavBar = (props: Props) => {
+const Header = (props: Props) => {
   const classes = useStyles()
   const { t } = useTranslation()
   const history = useHistory()
   const location = useLocation()
-
+  const isAuth = useSelector((state: RootState) => state.app.isAuth)
   const handleAuthButtonClick = () => {
     history.push(navigation.login.pathname)
   }
@@ -66,6 +69,7 @@ const NavBar = (props: Props) => {
                   to={pathname}
                   label={t(text)}
                   value={pathname}
+                  disabled={type === PROTECTED_TYPE && !isAuth}
                 />
               )
             })}
@@ -79,4 +83,4 @@ const NavBar = (props: Props) => {
   )
 }
 
-export default NavBar
+export default Header

@@ -1,13 +1,14 @@
 // @ts-check
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik'
+import { Formik, Form, Field, FormikHelpers } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { noop } from 'lodash'
 import cn from 'classnames'
 import * as Yup from 'yup'
-import logger from '../helper/logger'
-import { TextField, CircularProgress, Button } from '@material-ui/core'
+import { CircularProgress, Button } from '@material-ui/core'
+import { TextField } from 'formik-material-ui'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { AxiosResponse } from 'axios'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,15 +29,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const log = logger('login')
-
 interface FormValues {
   login: string
   password: string
 }
 
 interface IProps {
-  onSubmit?: () => void
+  onSubmit?: (params: FormValues) => Promise<AxiosResponse>
+  onSuccess?: (data: AxiosResponse) => void
+  onFailure?: (err: Error) => void
   className?: string
 }
 
@@ -46,7 +47,12 @@ const ChannelNameSchema = Yup.object().shape({
 })
 
 const LoginForm: React.FC<IProps> = (props) => {
-  const { onSubmit = noop, className } = props
+  const {
+    onSubmit = () => Promise.resolve({} as AxiosResponse),
+    onSuccess = noop,
+    onFailure = noop,
+    className
+  } = props
   const { t } = useTranslation()
   const classes = useStyles()
   const initialValues: FormValues = { login: '', password: '' }
@@ -55,16 +61,16 @@ const LoginForm: React.FC<IProps> = (props) => {
     formValues: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    const { login, password } = formValues
     const { setSubmitting, resetForm } = actions
     try {
-      log(login, password)
-      setSubmitting(false)
+      console.log(formValues)
+      const response = await onSubmit(formValues)
       resetForm()
-      onSubmit()
-    } catch ({ message }) {
+      onSuccess(response)
+    } catch (err) {
+      onFailure(err)
+    } finally {
       setSubmitting(false)
-      log(message)
     }
   }
   const formClasses = cn({ [classes.form]: true }, className)
@@ -86,7 +92,6 @@ const LoginForm: React.FC<IProps> = (props) => {
             disabled={isSubmitting}
             component={TextField}
           />
-          <ErrorMessage name="login" />
           <Field
             name="password"
             label={t('loginForm.passwordLabel')}
@@ -96,7 +101,6 @@ const LoginForm: React.FC<IProps> = (props) => {
             disabled={isSubmitting}
             component={TextField}
           />
-          <ErrorMessage name="password" />
           <Button
             type="submit"
             className={classes.submitButton}

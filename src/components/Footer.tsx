@@ -5,8 +5,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      color: theme.palette.secondary.main,
       height: 64,
+      color: 'white',
       backgroundColor: theme.palette.primary.main
     }
   })
