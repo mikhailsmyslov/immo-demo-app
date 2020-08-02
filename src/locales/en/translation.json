@@ -1,4 +1,5 @@
 {
+  "authorization": "Authorization",
   "main": "Home",
   "news": "News",
   "profile": "Profile",
@@ -6,26 +7,30 @@
   "logout": "Logout",
   "immo": "Immo",
   "more": "More",
-  "cancel": "Cancel",
-  "submit": "Submit",
-  "rename": "Rename",
-  "delete": "Delete",
-  "confirmChannelRemove": "Are you sure you want to remove the channel {{name}}?",
-  "sendMessageShortCut": "Send message: {{shortcut}}",
-  "errors": {
-    "oops": "Oops, something went wrong...",
-    "required": "Field could not be empty",
-    "pageNotFound": "Page not found",
-    "alredyExists": "Entered value already exists."
-  },
+  "profileOfUser": "Profile of user {{userName}}",
+  "name": "Name",
+  "jobDescription": "Job description",
+  "email": "E-mail",
+  "phone": "Phone",
   "publishedAt": "Published at: {{date, dd MMMM yyyy}}",
   "authoredBy": "Author: {{author}}",
-
-  "authorization": "Authorization",
+  "placeOfResidense": "Place of residense",
+  "workAsInCompany": "{{jobTitle}} at {{companyName}}",
+  "wellcomeUser": "Wellcome, {{userName}}!",
+  "wellcomeUserAuthText": "You are now authorized, so, click around and check the news",
+  "wellcomeGuest": "Wellcome to immo demo app!",
+  "submit": "Submit",
   "loginForm": {
     "loginLabel": "Login",
     "loginPlaceholder": "Enter your login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Enter your password"
+  },
+  "errors": {
+    "oops": "Oops, something went wrong...",
+    "required": "Field could not be empty",
+    "pageNotFound": "Page not found",
+    "unauthorized": "You are not authorized",
+    "unprocessableEntity": "Invalid login or password"
   }
 }

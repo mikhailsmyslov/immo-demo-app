@@ -1,1 +1,36 @@
-{}
+{
+  "authorization": "Авторизация",
+  "main": "Главная",
+  "news": "Новости",
+  "profile": "Профиль",
+  "login": "Вход",
+  "logout": "Выход",
+  "immo": "Иммо",
+  "more": "Подробнее",
+  "profileOfUser": "Профиль пользователя {{userName}}",
+  "name": "Имя",
+  "jobDescription": "Род деятельности",
+  "email": "E-mail",
+  "phone": "Телефон",
+  "publishedAt": "Опубликовано: {{date, dd MMMM yyyy}}",
+  "authoredBy": "Автор: {{author}}",
+  "placeOfResidense": "Локация",
+  "workAsInCompany": "{{jobTitle}} в {{companyName}}",
+  "wellcomeUser": "Добро пожаловать, {{userName}}!",
+  "wellcomeUserAuthText": "Теперь Вы авторизованы, проверьте новости",
+  "wellcomeGuest": "Добро пожаловать to immo demo app!",
+  "submit": "Отправить",
+  "loginForm": {
+    "loginLabel": "Логин",
+    "loginPlaceholder": "Введите логин",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Введите пароль"
+  },
+  "errors": {
+    "oops": "Упс, что-то пошло не так...",
+    "required": "Поле не может быть пустым",
+    "pageNotFound": "Запрашиваемый ресурс не найден",
+    "unauthorized": "Вы не авторизованы",
+    "unprocessableEntity": "Неправльный логин или пароль"
+  }
+}
