@@ -13,7 +13,6 @@ import navigation, { navBarTabsSet } from '../navigation'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, actions } from '../store'
-import { PROTECTED_TYPE } from '../constants'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
@@ -118,7 +117,7 @@ const Header = (props: Props) => {
               <MenuIcon />
             </IconButton>
             <Tabs className={classes.tabs} value={tabsValue}>
-              {navBarTabsSet.map(({ pathname, text, type }) => {
+              {navBarTabsSet.map(({ pathname, text }) => {
                 return (
                   <Tab
                     key={pathname}
@@ -126,9 +125,7 @@ const Header = (props: Props) => {
                     to={pathname}
                     label={t(text)}
                     value={pathname}
-                    disabled={
-                      isAppLoading || (type === PROTECTED_TYPE && !isAuth)
-                    }
+                    disabled={isAppLoading}
                   />
                 )
               })}

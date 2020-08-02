@@ -11,6 +11,7 @@ import Page404 from './Page404'
 import LoginContainer from './LoginContainer'
 import { aisAppLoadingSelector } from '../selectors'
 import { useSelector } from 'react-redux'
+import ProtectedRoute from './ProtectedRoute'
 
 interface Props {
   className?: string
@@ -52,8 +53,14 @@ const Main = (props: Props) => {
   return (
     <Container className={rootClasses} data-testid="main">
       <Switch>
-        <Route path={navigation.news.pathname} component={NewsContainer} />
-        <Route path={navigation.profile.pathname} component={Profile} />
+        <ProtectedRoute
+          path={navigation.news.pathname}
+          component={NewsContainer}
+        />
+        <ProtectedRoute
+          path={navigation.profile.pathname}
+          component={Profile}
+        />
         <Route path={navigation.login.pathname} component={LoginContainer} />
         <Route exact path={navigation.main.pathname} component={Home} />
         <Route path="*" component={Page404} />

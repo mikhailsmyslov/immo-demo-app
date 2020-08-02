@@ -7,6 +7,8 @@ import { useSnackbar } from 'notistack'
 import { useDispatch } from 'react-redux'
 import { actions } from '../store'
 import logger from '../helper/logger'
+import { useLocation, useHistory } from 'react-router-dom'
+import navigation from '../navigation'
 
 const log = logger('login')
 
@@ -34,7 +36,19 @@ const LoginContainer = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { enqueueSnackbar } = useSnackbar()
-  const onSubmit = (params: any) => dispatch(actions.performLogin(params))
+  const { state = { from: null } } = useLocation()
+  const history = useHistory()
+  const onSubmit = (params: any) => {
+    return dispatch(actions.performLogin(params))
+      .then(() => {
+        const redirectPathName = state.from || navigation.main.pathname
+        history.replace(redirectPathName)
+      })
+      .catch((err: Error) => {
+        log(err)
+        enqueueSnackbar(err.message, { variant: 'error' })
+      })
+  }
   const onFailure = (err: Error) => {
     log(err)
     enqueueSnackbar(err.message, { variant: 'error' })
