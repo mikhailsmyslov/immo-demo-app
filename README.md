@@ -12,7 +12,9 @@ Small test assignment for [IMMO](https://immo.ru/) company
 
 ### Live Demo
 
-[ms-immo.herokuapp.com](https://ms-immo.herokuapp.com/)
+[ms-immo.herokuapp.com](https://ms-immo.herokuapp.com/)  
+Login: Admin  
+Password: 12345
 
 ### TODO
 
