@@ -29,6 +29,10 @@ import ListItemText from '@material-ui/core/ListItemText'
 import KeyboardArrowRightOutlinedIcon from '@material-ui/icons/KeyboardArrowRightOutlined'
 import { isAppLoadingSelector } from '../selectors'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
+import useErrorHandler from '../hooks/useErrorHandler'
+import logger from '../helper/logger'
+
+const log = logger('header')
 
 interface Props {
   children?: React.ReactElement
@@ -143,11 +147,15 @@ const Header = (props: Props) => {
   const { pathname } = useLocation()
   const dispatch = useDispatch()
   const isAuth = useSelector((state: RootState) => state.app.isAuth)
-  const handleAuthButtonClick = () => {
-    if (!isAuth) {
-      return history.push(navigation.login.pathname)
+  const handleError = useErrorHandler()
+  const handleAuthButtonClick = async () => {
+    try {
+      dispatch(actions.performLogout())
+      history.push(navigation.login.pathname)
+    } catch (err) {
+      log(err)
+      handleError(err)
     }
-    dispatch(actions.performLogout())
   }
   const tabsValue = pathname === navigation.login.pathname ? false : pathname
   return (
