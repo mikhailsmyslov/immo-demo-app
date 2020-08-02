@@ -3,12 +3,12 @@ import { Container, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import LoginForm from './LoginForm'
 import { useTranslation } from 'react-i18next'
-import { useSnackbar } from 'notistack'
 import { useDispatch } from 'react-redux'
 import { actions } from '../store'
 import logger from '../helper/logger'
 import { useLocation, useHistory } from 'react-router-dom'
 import navigation from '../navigation'
+import useErrorHandler from '../hooks/useErrorHandler'
 
 const log = logger('login')
 
@@ -35,7 +35,7 @@ const LoginContainer = () => {
   const classes = useStyles()
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { enqueueSnackbar } = useSnackbar()
+  const handleError = useErrorHandler()
   const { state = { from: null } } = useLocation()
   const history = useHistory()
   const onSubmit = (params: any) => {
@@ -46,12 +46,12 @@ const LoginContainer = () => {
       })
       .catch((err: Error) => {
         log(err)
-        enqueueSnackbar(err.message, { variant: 'error' })
+        handleError(err)
       })
   }
   const onFailure = (err: Error) => {
     log(err)
-    enqueueSnackbar(err.message, { variant: 'error' })
+    handleError(err)
   }
 
   return (

@@ -165,7 +165,11 @@ const Header = (props: Props) => {
               <MenuIcon />
             </IconButton>
             <Hidden smDown>
-              <Tabs className={classes.tabs} value={tabsValue}>
+              <Tabs
+                className={classes.tabs}
+                value={tabsValue}
+                selectionFollowsFocus={false}
+              >
                 {navBarTabsSet.map(({ pathname, text }) => {
                   return (
                     <Tab

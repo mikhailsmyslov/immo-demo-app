@@ -12,8 +12,8 @@ import {
 import { NewsItem } from '../store/news'
 import { newsSelector } from '../selectors'
 import { useTranslation } from 'react-i18next'
-import { useSnackbar } from 'notistack'
 import logger from '../helper/logger'
+import useErrorHandler from '../hooks/useErrorHandler'
 
 const log = logger('news')
 
@@ -25,16 +25,16 @@ const NewsContainer: React.FC<Props> = (props) => {
   const { data: news, isLoading } = useSelector(newsSelector)
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { enqueueSnackbar } = useSnackbar()
+  const handleError = useErrorHandler()
 
   useEffect(() => {
     if (isEmpty(news)) {
       dispatch(actions.fetchNews()).catch((err: Error) => {
         log(err)
-        enqueueSnackbar(err.message, { variant: 'error' })
+        handleError(err)
       })
     }
-  }, [dispatch, enqueueSnackbar, news])
+  }, [dispatch, handleError, news])
 
   return (
     <Container disableGutters>

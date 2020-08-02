@@ -18,7 +18,7 @@
   "workAsInCompany": "{{jobTitle}} в {{companyName}}",
   "wellcomeUser": "Добро пожаловать, {{userName}}!",
   "wellcomeUserAuthText": "Теперь Вы авторизованы, проверьте новости",
-  "wellcomeGuest": "Добро пожаловать to immo demo app!",
+  "wellcomeGuest": "Добро пожаловать в immo demo app!",
   "submit": "Отправить",
   "loginForm": {
     "loginLabel": "Логин",

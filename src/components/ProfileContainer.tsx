@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core'
 import { profileSelector, userNameSelector } from '../selectors'
 import { useTranslation } from 'react-i18next'
-import { useSnackbar } from 'notistack'
 import logger from '../helper/logger'
+import useErrorHandler from '../hooks/useErrorHandler'
 
 const log = logger('profile')
 
@@ -27,16 +27,16 @@ const ProfileContainer: React.FC<Props> = (props) => {
   const userName = useSelector(userNameSelector)
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { enqueueSnackbar } = useSnackbar()
+  const handleError = useErrorHandler()
 
   useEffect(() => {
     if (isEmpty(profile)) {
       dispatch(actions.fetchProfile()).catch((err: Error) => {
         log(err)
-        enqueueSnackbar(err.message, { variant: 'error' })
+        handleError(err)
       })
     }
-  }, [dispatch, enqueueSnackbar, profile])
+  }, [dispatch, handleError, profile])
 
   return (
     <Container disableGutters>

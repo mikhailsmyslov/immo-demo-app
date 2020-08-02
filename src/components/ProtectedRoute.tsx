@@ -23,7 +23,7 @@ const ProtectedRoute: React.FC<
 
   useEffect(() => {
     if (isAuth === false) {
-      enqueueSnackbar(t('authRequired'), { variant: 'warning' })
+      enqueueSnackbar(t('errors.unauthorized'), { variant: 'warning' })
       histrory.push(navigation.login.pathname, { from: pathname })
     }
   }, [enqueueSnackbar, histrory, isAuth, pathname, t])

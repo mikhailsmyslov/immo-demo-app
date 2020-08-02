@@ -40,7 +40,7 @@ const Layout = (props: { children: any }) => {
 
   useEffect(() => {
     const tKey = find(routes, { pathname })?.text
-    document.title = tKey ? t([tKey, 'IMMO']) : 'Immo'
+    document.title = tKey ? t([tKey, 'immo']) : 'immo'
   }, [pathname, t])
 
   useEffect(() => {

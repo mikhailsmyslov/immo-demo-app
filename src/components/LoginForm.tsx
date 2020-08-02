@@ -9,6 +9,7 @@ import { CircularProgress, Button } from '@material-ui/core'
 import { TextField } from 'formik-material-ui'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { AxiosResponse } from 'axios'
+import i18n from 'i18next'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,8 +43,8 @@ interface IProps {
 }
 
 const ChannelNameSchema = Yup.object().shape({
-  login: Yup.string().required('required'),
-  password: Yup.string().required('required')
+  login: Yup.string().required(i18n.t('errors.required')),
+  password: Yup.string().required(i18n.t('errors.required'))
 })
 
 const LoginForm: React.FC<IProps> = (props) => {

@@ -33,12 +33,18 @@ const slice = createSlice({
     },
     setIsLoading: (state, action) => {
       state.isLoading = action.payload
+    },
+    clearSession: (state) => {
+      localStorage.removeItem(TOKEN_KEY)
+      state.isAuth = false
+      state.userName = null
+      state.uid = null
     }
   }
 })
 
 const {
-  actions: { setIsAuth, setUid, setUserName, setIsLoading }
+  actions: { setIsAuth, setUid, setUserName, setIsLoading, clearSession }
 } = slice
 
 const performLogin = (params: PostSessionParams) => async (
@@ -55,10 +61,7 @@ const performLogin = (params: PostSessionParams) => async (
 const performLogout = () => async (dispatch: Function) => {
   dispatch(setIsLoading(true))
   await deleteSession().finally(() => {
-    localStorage.removeItem(TOKEN_KEY)
-    dispatch(setIsAuth(false))
-    dispatch(setUid(null))
-    dispatch(setUserName(null))
+    dispatch(clearSession())
     dispatch(setIsLoading(false))
   })
 }
@@ -72,10 +75,7 @@ const validateSession = () => async (dispatch: Function) => {
     dispatch(setUid(uid))
     dispatch(setUserName(userName))
   } catch (e) {
-    localStorage.removeItem(TOKEN_KEY)
-    dispatch(setIsAuth(false))
-    dispatch(setUid(null))
-    dispatch(setUserName(null))
+    dispatch(clearSession())
     throw e
   } finally {
     dispatch(setIsLoading(false))
