@@ -118,7 +118,7 @@ const ScrollTop = (props: Props) => {
   })
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    window.scrollTo({
+    document.body.scrollTo({
       top: 0,
       behavior: 'smooth'
     })

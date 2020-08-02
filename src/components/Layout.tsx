@@ -50,7 +50,7 @@ const Layout = (props: { children: any }) => {
   }, [dispatch, history])
 
   useEffect(() => {
-    window.scrollTo({
+    document.body.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
