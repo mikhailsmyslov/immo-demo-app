@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
@@ -8,7 +8,14 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { Tabs, Tab, CircularProgress, Hidden } from '@material-ui/core'
+import {
+  Tabs,
+  Tab,
+  CircularProgress,
+  Hidden,
+  Zoom,
+  Fab
+} from '@material-ui/core'
 import navigation, { navBarTabsSet } from '../navigation'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -20,7 +27,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import KeyboardArrowRightOutlinedIcon from '@material-ui/icons/KeyboardArrowRightOutlined'
-import { aisAppLoadingSelector } from '../selectors'
+import { isAppLoadingSelector } from '../selectors'
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 
 interface Props {
   children?: React.ReactElement
@@ -36,6 +44,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1
+    },
+    scrollTopButton: {
+      position: 'fixed',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2)
     }
   })
 )
@@ -71,7 +84,7 @@ const SideMenu: React.FC<ISideMenu> = (props) => {
       >
         <List style={{ padding: 0 }}>
           {navBarTabsSet.map(({ pathname, text }) => (
-            <>
+            <Fragment key={pathname}>
               <ListItem button key={pathname} onClick={handleClick(pathname)}>
                 <ListItemIcon>
                   <KeyboardArrowRightOutlinedIcon />
@@ -82,11 +95,40 @@ const SideMenu: React.FC<ISideMenu> = (props) => {
                 />
               </ListItem>
               <Divider />
-            </>
+            </Fragment>
           ))}
         </List>
       </div>
     </SwipeableDrawer>
+  )
+}
+
+const ScrollTop = (props: Props) => {
+  const { children } = props
+  const classes = useStyles()
+  const trigger = useScrollTrigger({
+    target: window,
+    disableHysteresis: true,
+    threshold: 200
+  })
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
+  return (
+    <Zoom in={trigger}>
+      <div
+        onClick={handleClick}
+        role="presentation"
+        className={classes.scrollTopButton}
+      >
+        {children}
+      </div>
+    </Zoom>
   )
 }
 
@@ -95,7 +137,7 @@ const Header = (props: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
   const { t } = useTranslation()
-  const { isAppLoading } = useSelector(aisAppLoadingSelector)
+  const { isAppLoading } = useSelector(isAppLoadingSelector)
   const history = useHistory()
   const { pathname } = useLocation()
   const dispatch = useDispatch()
@@ -154,6 +196,11 @@ const Header = (props: Props) => {
           </Toolbar>
         </AppBar>
       </HideOnScroll>
+      <ScrollTop {...props}>
+        <Fab color="secondary" size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </>
   )
 }
