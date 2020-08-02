@@ -28,5 +28,4 @@ jobs:
       - name: lint check
         run: npm run lint
       - name: test
-        uses: paambaati/codeclimate-action@v2.6.0
         run: npm run test
