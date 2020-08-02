@@ -14,8 +14,7 @@ import store from './store'
 import { Provider } from 'react-redux'
 import Layout from './components/Layout'
 import { SnackbarProvider } from 'notistack'
-import './styles/App.scss'
-
+import CssBaseline from '@material-ui/core/CssBaseline'
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -40,6 +39,7 @@ const App = () => {
   const classes = useStyles()
   return (
     <Provider store={store}>
+      <CssBaseline />
       <ThemeProvider theme={theme}>
         <SnackbarProvider maxSnack={3}>
           <BrowserRouter>
