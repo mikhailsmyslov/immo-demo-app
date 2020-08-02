@@ -43,7 +43,7 @@
     "start-backend:dev": "npx nodemon --exec npx babel-node server/bin/app.js",
     "build-backend": "babel server --out-dir dist --source-maps inline",
     "build": "NODE_ENV=production npm run build-frontend && npm run build-backend",
-    "start": "dist/bin/app.js",
+    "start": "NODE_ENV=production node dist/bin/app.js",
     "start:dev": "NODE_ENV=development concurrently \"npm run start-frontend:dev\" \"npm run start-backend:dev\"",
     "lint": "npx eslint src --ext js,jsx,ts,tsx --fix && npx eslint server --ext js,jsx,ts,tsx --fix",
     "postinstall": "npm run build"

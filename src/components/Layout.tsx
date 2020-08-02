@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next'
 import { TOKEN_KEY } from '../constants'
 import { useDispatch } from 'react-redux'
 import { actions } from '../store'
-import navigation from '../navigation'
 import logger from '../helper/logger'
 
 const log = logger('layout')
@@ -47,7 +46,6 @@ const Layout = (props: { children: any }) => {
     const token = localStorage.getItem(TOKEN_KEY)
     dispatch(actions.validateSession(token)).catch((err: Error) => {
       log(err)
-      history.replace(navigation.main.pathname)
     })
   }, [dispatch, history])
 
