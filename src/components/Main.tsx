@@ -12,6 +12,7 @@ import LoginContainer from './LoginContainer'
 import { isAppLoadingSelector } from '../selectors'
 import { useSelector } from 'react-redux'
 import ProtectedRoute from './ProtectedRoute'
+import ErrorBoundary from './ErrorBoundary'
 
 interface Props {
   className?: string
@@ -50,21 +51,24 @@ const Main = (props: Props) => {
         <CircularProgress color="secondary" />
       </Container>
     )
+
   return (
     <Container className={rootClasses} data-testid="main">
-      <Switch>
-        <ProtectedRoute
-          path={navigation.news.pathname}
-          component={NewsContainer}
-        />
-        <ProtectedRoute
-          path={navigation.profile.pathname}
-          component={ProfileContainer}
-        />
-        <Route path={navigation.login.pathname} component={LoginContainer} />
-        <Route exact path={navigation.main.pathname} component={Home} />
-        <Route path="*" component={Page404} />
-      </Switch>
+      <ErrorBoundary>
+        <Switch>
+          <ProtectedRoute
+            path={navigation.news.pathname}
+            component={NewsContainer}
+          />
+          <ProtectedRoute
+            path={navigation.profile.pathname}
+            component={ProfileContainer}
+          />
+          <Route path={navigation.login.pathname} component={LoginContainer} />
+          <Route exact path={navigation.main.pathname} component={Home} />
+          <Route path="*" component={Page404} />
+        </Switch>
+      </ErrorBoundary>
     </Container>
   )
 }

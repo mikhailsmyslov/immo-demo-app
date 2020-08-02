@@ -29,7 +29,7 @@ const Icons = [
 const Footer = () => {
   const classes = useStyles()
   return (
-    <AppBar className={classes.appBar} component="footer" data-testid="header">
+    <AppBar className={classes.appBar} component="footer" data-testid="footer">
       <Toolbar variant="dense" disableGutters>
         {Icons.map((Icon, index) => (
           <IconButton color="inherit" key={index}>

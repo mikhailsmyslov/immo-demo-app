@@ -14,6 +14,7 @@ import store from './store'
 import { Provider } from 'react-redux'
 import Layout from './components/Layout'
 import { SnackbarProvider } from 'notistack'
+import ErrorBoundary from './components/ErrorBoundary'
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -41,11 +42,13 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <SnackbarProvider maxSnack={3}>
           <BrowserRouter>
-            <Layout>
-              <Header />
-              <Main className={classes.main} />
-              <Footer />
-            </Layout>
+            <ErrorBoundary>
+              <Layout>
+                <Header />
+                <Main className={classes.main} />
+                <Footer />
+              </Layout>
+            </ErrorBoundary>
           </BrowserRouter>
         </SnackbarProvider>
       </ThemeProvider>
