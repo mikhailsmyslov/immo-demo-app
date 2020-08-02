@@ -13,6 +13,10 @@ export default (router) => {
       .then((response) => {
         res.status(200).json(response)
       })
+      .catch((e) => {
+        console.error(e)
+        res.sendStatus(500)
+      })
   })
 
   return router
