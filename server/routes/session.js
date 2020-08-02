@@ -25,7 +25,7 @@ export default (router) => {
         token: generateToken({ userId }, { subject: userId })
       })
     } else {
-      res.sendStatus(401)
+      res.sendStatus(422)
     }
   })
 
