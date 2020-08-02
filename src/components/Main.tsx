@@ -9,7 +9,7 @@ import NewsContainer from './NewsContainer'
 import Home from './Home'
 import Page404 from './Page404'
 import LoginContainer from './LoginContainer'
-import { aisAppLoadingSelector } from '../selectors'
+import { isAppLoadingSelector } from '../selectors'
 import { useSelector } from 'react-redux'
 import ProtectedRoute from './ProtectedRoute'
 
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Main = (props: Props) => {
   const { className } = props
   const classes = useStyles()
-  const isLoading = useSelector(aisAppLoadingSelector)
+  const isLoading = useSelector(isAppLoadingSelector)
   const rootClasses = cn(
     {
       [classes.root]: true
