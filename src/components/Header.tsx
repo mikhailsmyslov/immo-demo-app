@@ -11,8 +11,8 @@ import { useTranslation } from 'react-i18next'
 import { Tabs, Tab } from '@material-ui/core'
 import navigation, { navBarTabsSet } from '../navigation'
 import { Link, useHistory, useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from '../store'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, actions } from '../store'
 import { PROTECTED_TYPE } from '../constants'
 
 interface Props {
@@ -49,9 +49,13 @@ const Header = (props: Props) => {
   const { t } = useTranslation()
   const history = useHistory()
   const location = useLocation()
+  const dispatch = useDispatch()
   const isAuth = useSelector((state: RootState) => state.app.isAuth)
   const handleAuthButtonClick = () => {
-    history.push(navigation.login.pathname)
+    if (!isAuth) {
+      return history.push(navigation.login.pathname)
+    }
+    dispatch(actions.performLogout())
   }
   return (
     <HideOnScroll {...props}>
@@ -75,7 +79,7 @@ const Header = (props: Props) => {
             })}
           </Tabs>
           <Button color="inherit" onClick={handleAuthButtonClick}>
-            {t('login')}
+            {isAuth ? t('logout') : t('login')}
           </Button>
         </Toolbar>
       </AppBar>

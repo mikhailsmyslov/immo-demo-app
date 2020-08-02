@@ -25,6 +25,8 @@ export interface GetNewsParams {
 export const postSession = (params: PostSessionParams) =>
   api.post('/session', params)
 
+export const getSession = () => api.get('/session')
+
 export const deleteSession = () => api.delete('/session')
 
 export const getNews = (params?: GetNewsParams) => api.get('/news', { params })

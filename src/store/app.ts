@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { postSession, deleteSession, PostSessionParams } from '../api'
+import {
+  postSession,
+  deleteSession,
+  PostSessionParams,
+  getSession
+} from '../api'
 import { TOKEN_KEY } from '../constants'
 
 interface AppState {
@@ -39,7 +44,7 @@ const performLogin = (params: PostSessionParams) => async (
   const response = await postSession(params).finally(() =>
     dispatch(setIsLoading(false))
   )
-  const { id: uid, token } = response.data.data.id
+  const { id: uid, token } = response.data
   localStorage.setItem(TOKEN_KEY, token)
   dispatch(setIsAuth(Boolean(token)))
   dispatch(setUid(uid))
@@ -53,11 +58,27 @@ const performLogout = () => async (dispatch: Function) => {
   dispatch(setUid(null))
 }
 
+const validateSession = () => async (dispatch: Function) => {
+  dispatch(setIsLoading(true))
+  try {
+    const response = await getSession()
+    const { id: uid } = response.data
+    dispatch(setIsAuth(true))
+    dispatch(setUid(uid))
+  } catch (e) {
+    localStorage.removeItem(TOKEN_KEY)
+    dispatch(setIsAuth(false))
+    dispatch(setUid(null))
+  }
+  await getSession().finally(() => dispatch(setIsLoading(false)))
+}
+
 export default {
   ...slice,
   actions: {
     ...slice.actions,
     performLogin,
-    performLogout
+    performLogout,
+    validateSession
   }
 }
