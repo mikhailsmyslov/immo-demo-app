@@ -42,7 +42,7 @@ const slice = createSlice({
   reducers: {
     addNews: {
       reducer: (state, action) => {
-        state.data.push(...action.payload)
+        state.data = action.payload
       },
       prepare: (payload) => {
         const { articles } = payload

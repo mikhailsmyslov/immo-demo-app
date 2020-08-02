@@ -108,7 +108,7 @@ const ScrollTop = (props: Props) => {
   const { children } = props
   const classes = useStyles()
   const trigger = useScrollTrigger({
-    target: window,
+    target: document.body,
     disableHysteresis: true,
     threshold: 200
   })
