@@ -9,14 +9,15 @@ import { TOKEN_KEY } from '../constants'
 
 interface AppState {
   uid: number | null
-  isAuth: boolean
+  isAuth: boolean | null
+  userName: string | null
   isLoading: boolean
 }
 
 const slice = createSlice({
   name: 'app',
   initialState: {
-    isAuth: false,
+    isAuth: null,
     uid: null,
     isLoading: false
   } as AppState,
@@ -27,6 +28,9 @@ const slice = createSlice({
     setUid: (state, action) => {
       state.uid = action.payload
     },
+    setUserName: (state, action) => {
+      state.userName = action.payload
+    },
     setIsLoading: (state, action) => {
       state.isLoading = action.payload
     }
@@ -34,17 +38,18 @@ const slice = createSlice({
 })
 
 const {
-  actions: { setIsAuth, setUid, setIsLoading }
+  actions: { setIsAuth, setUid, setUserName, setIsLoading }
 } = slice
 
 const performLogin = (params: PostSessionParams) => async (
   dispatch: Function
 ) => {
   const response = await postSession(params)
-  const { id: uid, token } = response.data
+  const { id: uid, token, userName } = response.data
   localStorage.setItem(TOKEN_KEY, token)
   dispatch(setIsAuth(Boolean(token)))
   dispatch(setUid(uid))
+  dispatch(setUserName(userName))
 }
 
 const performLogout = () => async (dispatch: Function) => {
@@ -53,6 +58,7 @@ const performLogout = () => async (dispatch: Function) => {
     localStorage.removeItem(TOKEN_KEY)
     dispatch(setIsAuth(false))
     dispatch(setUid(null))
+    dispatch(setUserName(null))
     dispatch(setIsLoading(false))
   })
 }
@@ -61,13 +67,15 @@ const validateSession = () => async (dispatch: Function) => {
   dispatch(setIsLoading(true))
   try {
     const response = await getSession()
-    const { id: uid } = response.data
+    const { id: uid, userName } = response.data
     dispatch(setIsAuth(true))
     dispatch(setUid(uid))
+    dispatch(setUserName(userName))
   } catch (e) {
     localStorage.removeItem(TOKEN_KEY)
     dispatch(setIsAuth(false))
     dispatch(setUid(null))
+    dispatch(setUserName(null))
     throw e
   } finally {
     dispatch(setIsLoading(false))

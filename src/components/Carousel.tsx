@@ -31,11 +31,14 @@ const useStyles = makeStyles((theme: Theme) =>
     carouselItem: {
       minHeight: 250,
       margin: 'auto',
-      boxShadow: '5px 5px 20px grey'
+      boxShadow: '5px 5px 20px grey',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     carouselItemText: {
       position: 'absolute',
-      top: '10%',
+      top: '5%',
       left: '5%',
       color: 'white',
       filter: 'drop-shadow(1px 1px 2px black)'
@@ -77,7 +80,7 @@ const CarouselItem: React.FC<ICarouselItemProps> = (props) => {
         component="img"
       />
       <CardContent className={classes.carouselItemText}>
-        <Typography variant="h4">{title}</Typography>
+        <Typography variant="h6">{title}</Typography>
         <Typography variant="body1">{description}</Typography>
       </CardContent>
     </Card>

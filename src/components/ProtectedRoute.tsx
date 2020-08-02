@@ -22,13 +22,13 @@ const ProtectedRoute: React.FC<
   const { t } = useTranslation()
 
   useEffect(() => {
-    if (!isAuth) {
+    if (isAuth === false) {
       enqueueSnackbar(t('authRequired'), { variant: 'warning' })
       histrory.push(navigation.login.pathname, { from: pathname })
     }
   }, [enqueueSnackbar, histrory, isAuth, pathname, t])
 
-  if (!isAuth) return null
+  if ([null, false].includes(isAuth)) return null
   return (
     <Route
       render={(props: RouteComponentProps) => <Component {...props} />}

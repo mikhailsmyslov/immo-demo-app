@@ -1,19 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getProfile } from '../api'
 
-interface ProfileState {
+export interface ProfileItem {
+  firstName?: string
+  lastName?: string
+  jobTitle?: string
+  companyName?: string
+  county?: string
+  city?: string
+  avatar?: string
+  phone?: string
+  email?: string
+}
+
+export interface ProfileState {
   isLoading: boolean
-  data: {
-    firstName?: string
-    lastName?: string
-    jobTitle?: string
-    companyName?: string
-    county?: string
-    city?: string
-    avatar?: string
-    phone?: string
-    email?: string
-  }
+  data: ProfileItem
 }
 
 const slice = createSlice({
@@ -42,6 +44,8 @@ const fetchProfile = () => async (dispatch: Function) => {
     dispatch(setIsLoading(false))
   )
   const profile = response.data
+  console.log(profile)
+
   dispatch(setProfile(profile))
 }
 

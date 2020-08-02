@@ -47,7 +47,7 @@ export default (router) => {
         const { id, urls, description, alt_description, location } = item
         return {
           id,
-          imageUrl: [urls.raw, 'w=900', 'h=400', 'fit=clamp'].join('&'),
+          imageUrl: [urls.raw, 'w=900', 'h=400', 'fit=clip'].join('&'),
           title: capitalize(
             location.title || location.name || faker.lorem.words()
           ),

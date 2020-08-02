@@ -56,7 +56,7 @@ const Home = () => {
 
   return (
     <Container className={classes.container} disableGutters>
-      <Typography variant="h2" className={classes.title}>
+      <Typography variant="h5" className={classes.title}>
         {isAuth ? t('wellcomeUser', { userName }) : t('wellcomeGuest')}
         <Divider />
       </Typography>
@@ -64,7 +64,7 @@ const Home = () => {
         <Typography
           className={classes.authText}
           color="textSecondary"
-          variant="h6"
+          variant="body2"
         >
           {t('wellcomeUserAuthText')}
         </Typography>

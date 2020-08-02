@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { Tabs, Tab, CircularProgress } from '@material-ui/core'
+import { Tabs, Tab, CircularProgress, Hidden } from '@material-ui/core'
 import navigation, { navBarTabsSet } from '../navigation'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -64,22 +64,27 @@ const SideMenu: React.FC<ISideMenu> = (props) => {
   return (
     <SwipeableDrawer open={isOpen} onClose={onOpen} onOpen={onClose}>
       <div
-        style={{ width: 250, maxWidth: '75%' }}
+        style={{ width: 250 }}
         role="presentation"
         onClick={onClose}
         onKeyDown={onClose}
       >
-        <List>
+        <List style={{ padding: 0 }}>
           {navBarTabsSet.map(({ pathname, text }) => (
-            <ListItem button key={pathname} onClick={handleClick(pathname)}>
-              <ListItemIcon>
-                <KeyboardArrowRightOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} style={{ marginLeft: '5%' }} />
-            </ListItem>
+            <>
+              <ListItem button key={pathname} onClick={handleClick(pathname)}>
+                <ListItemIcon>
+                  <KeyboardArrowRightOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={text.toUpperCase()}
+                  style={{ marginLeft: '5%' }}
+                />
+              </ListItem>
+              <Divider />
+            </>
           ))}
         </List>
-        <Divider />
       </div>
     </SwipeableDrawer>
   )
@@ -116,23 +121,26 @@ const Header = (props: Props) => {
             >
               <MenuIcon />
             </IconButton>
-            <Tabs className={classes.tabs} value={tabsValue}>
-              {navBarTabsSet.map(({ pathname, text }) => {
-                return (
-                  <Tab
-                    key={pathname}
-                    component={Link}
-                    to={pathname}
-                    label={t(text)}
-                    value={pathname}
-                    disabled={isAppLoading}
-                  />
-                )
-              })}
-            </Tabs>
+            <Hidden smDown>
+              <Tabs className={classes.tabs} value={tabsValue}>
+                {navBarTabsSet.map(({ pathname, text }) => {
+                  return (
+                    <Tab
+                      key={pathname}
+                      component={Link}
+                      to={pathname}
+                      label={t(text)}
+                      value={pathname}
+                      disabled={isAppLoading}
+                    />
+                  )
+                })}
+              </Tabs>
+            </Hidden>
             <Button
               color="inherit"
               onClick={handleAuthButtonClick}
+              style={{ marginLeft: 'auto' }}
               disabled={isAppLoading}
             >
               {isAppLoading ? (

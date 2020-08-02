@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import cn from 'classnames'
 import { Route, Switch } from 'react-router-dom'
 import navigation from '../navigation'
-import Profile from './Profile'
+import ProfileContainer from './ProfileContainer'
 import NewsContainer from './NewsContainer'
 import Home from './Home'
 import Page404 from './Page404'
@@ -59,7 +59,7 @@ const Main = (props: Props) => {
         />
         <ProtectedRoute
           path={navigation.profile.pathname}
-          component={Profile}
+          component={ProfileContainer}
         />
         <Route path={navigation.login.pathname} component={LoginContainer} />
         <Route exact path={navigation.main.pathname} component={Home} />

@@ -5,8 +5,10 @@ import { addToBlackList } from '../blackList'
 export default (router) => {
   router.get('/session', isAuth, (req, res) => {
     const userId = process.env.USER_ID
+    const userName = process.env.USER_LOGIN
     res.status(200).json({
-      id: userId
+      id: userId,
+      userName
     })
   })
 
@@ -19,6 +21,7 @@ export default (router) => {
       const userId = process.env.USER_ID
       res.status(200).json({
         id: userId,
+        userName: login,
         token: generateToken({ userId }, { subject: userId })
       })
     } else {
