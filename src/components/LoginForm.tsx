@@ -63,7 +63,6 @@ const LoginForm: React.FC<IProps> = (props) => {
   ) => {
     const { setSubmitting, resetForm } = actions
     try {
-      console.log(formValues)
       const response = await onSubmit(formValues)
       resetForm()
       onSuccess(response)

@@ -44,7 +44,6 @@ const fetchProfile = () => async (dispatch: Function) => {
     dispatch(setIsLoading(false))
   )
   const profile = response.data
-  console.log(profile)
 
   dispatch(setProfile(profile))
 }

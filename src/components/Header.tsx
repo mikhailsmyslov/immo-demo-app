@@ -73,6 +73,7 @@ interface ISideMenu {
 const SideMenu: React.FC<ISideMenu> = (props) => {
   const { isOpen = false, onOpen = () => {}, onClose = () => {} } = props
   const history = useHistory()
+  const { t } = useTranslation()
   const handleClick = (pathname: string) => () => history.push(pathname)
   return (
     <SwipeableDrawer open={isOpen} onClose={onOpen} onOpen={onClose}>
@@ -90,7 +91,7 @@ const SideMenu: React.FC<ISideMenu> = (props) => {
                   <KeyboardArrowRightOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary={text.toUpperCase()}
+                  primary={t(text).toUpperCase()}
                   style={{ marginLeft: '5%' }}
                 />
               </ListItem>
