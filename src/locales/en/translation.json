@@ -20,6 +20,9 @@
     "pageNotFound": "Page not found",
     "alredyExists": "Entered value already exists."
   },
+  "publishedAt": "Published at: {{date, dd MMMM yyyy}}",
+  "authoredBy": "Author: {{author}}",
+
   "authorization": "Authorization",
   "loginForm": {
     "loginLabel": "Login",

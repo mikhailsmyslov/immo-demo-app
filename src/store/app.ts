@@ -40,10 +40,7 @@ const {
 const performLogin = (params: PostSessionParams) => async (
   dispatch: Function
 ) => {
-  dispatch(setIsLoading(true))
-  const response = await postSession(params).finally(() =>
-    dispatch(setIsLoading(false))
-  )
+  const response = await postSession(params)
   const { id: uid, token } = response.data
   localStorage.setItem(TOKEN_KEY, token)
   dispatch(setIsAuth(Boolean(token)))
@@ -52,10 +49,12 @@ const performLogin = (params: PostSessionParams) => async (
 
 const performLogout = () => async (dispatch: Function) => {
   dispatch(setIsLoading(true))
-  await deleteSession().finally(() => dispatch(setIsLoading(false)))
-  localStorage.removeItem(TOKEN_KEY)
-  dispatch(setIsAuth(false))
-  dispatch(setUid(null))
+  await deleteSession().finally(() => {
+    localStorage.removeItem(TOKEN_KEY)
+    dispatch(setIsAuth(false))
+    dispatch(setUid(null))
+    dispatch(setIsLoading(false))
+  })
 }
 
 const validateSession = () => async (dispatch: Function) => {
@@ -69,8 +68,10 @@ const validateSession = () => async (dispatch: Function) => {
     localStorage.removeItem(TOKEN_KEY)
     dispatch(setIsAuth(false))
     dispatch(setUid(null))
+    throw e
+  } finally {
+    dispatch(setIsLoading(false))
   }
-  await getSession().finally(() => dispatch(setIsLoading(false)))
 }
 
 export default {

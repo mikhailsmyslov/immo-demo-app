@@ -6,6 +6,9 @@ import { useTranslation } from 'react-i18next'
 import { useSnackbar } from 'notistack'
 import { useDispatch } from 'react-redux'
 import { actions } from '../store'
+import logger from '../helper/logger'
+
+const log = logger('login')
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,6 +36,7 @@ const LoginContainer = () => {
   const { enqueueSnackbar } = useSnackbar()
   const onSubmit = (params: any) => dispatch(actions.performLogin(params))
   const onFailure = (err: Error) => {
+    log(err)
     enqueueSnackbar(err.message, { variant: 'error' })
   }
 

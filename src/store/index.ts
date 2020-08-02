@@ -3,8 +3,9 @@ import { configureStore } from '@reduxjs/toolkit'
 import news from './news'
 import app from './app'
 import profile from './profile'
+import images from './images'
 
-const slices = [news, app, profile]
+const slices = [news, app, profile, images]
 
 export const reducers = slices.reduce(
   (acc, slice) => ({ ...acc, [slice.name]: slice.reducer }),

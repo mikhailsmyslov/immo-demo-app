@@ -1,9 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getNews, GetNewsParams } from '../api'
+import getHashFromContent from '../helper/hash'
+import { Subtract } from 'utility-types'
+
+interface RawNewsItem extends Subtracted {
+  author: string
+  title: string
+  description: string
+  url: string
+  urlToImage: string
+  publishedAt: string
+}
+
+type SourceId = string | number | null
+
+type Subtracted = {
+  source: {
+    id: SourceId
+    name: string
+  }
+  content: string
+}
+
+export interface NewsItem extends Subtract<RawNewsItem, Subtracted> {
+  id: string
+  sourceName: string
+  sourceId: SourceId
+}
 
 interface NewsState {
   isLoading: boolean
-  data: Object[]
+  data: NewsItem[]
 }
 
 const slice = createSlice({
@@ -13,8 +40,20 @@ const slice = createSlice({
     data: []
   } as NewsState,
   reducers: {
-    addNews: (state, action) => {
-      state.data.push(action.payload)
+    addNews: {
+      reducer: (state, action) => {
+        state.data.push(...action.payload)
+      },
+      prepare: (payload) => {
+        const { articles } = payload
+        const data = articles.map((article: RawNewsItem) => {
+          const { content, source, ...restFields } = article
+          const { id: sourceId, name: sourceName } = source
+          const id = getHashFromContent(article.description)
+          return { ...restFields, sourceName, sourceId, id }
+        })
+        return { payload: data } as any
+      }
     },
     setIsLoading: (state, action) => {
       state.isLoading = action.payload

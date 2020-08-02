@@ -9,6 +9,9 @@ import { TOKEN_KEY } from '../constants'
 import { useDispatch } from 'react-redux'
 import { actions } from '../store'
 import navigation from '../navigation'
+import logger from '../helper/logger'
+
+const log = logger('layout')
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,9 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       minWidth: '100vw',
       minHeight: '100vh',
-      maxWidth: '100vw',
+      maxWidth: '100%',
       height: '100%',
-      width: '100%'
+      width: '100%',
+      background: 'whitesmoke'
     }
   })
 )
@@ -41,12 +45,18 @@ const Layout = (props: { children: any }) => {
 
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY)
-    try {
-      dispatch(actions.validateSession(token))
-    } catch (e) {
+    dispatch(actions.validateSession(token)).catch((err: Error) => {
+      log(err)
       history.replace(navigation.main.pathname)
-    }
+    })
   }, [dispatch, history])
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }, [])
 
   return (
     <Container className={classes.root} disableGutters={true} maxWidth={false}>
