@@ -15,7 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const Footer = () => {
   const classes = useStyles()
   return (
-    <Container className={classes.root} disableGutters={true} maxWidth={false}>
+    <Container
+      className={classes.root}
+      disableGutters={true}
+      maxWidth={false}
+      data-testid="footer"
+    >
       <Box>Footer</Box>
     </Container>
   )

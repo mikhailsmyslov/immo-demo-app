@@ -39,7 +39,7 @@ const Main = (props: Props) => {
     className
   )
   return (
-    <Container className={rootClasses}>
+    <Container className={rootClasses} data-testid="main">
       <Switch>
         <Route path={navigation.news.pathname} component={NewsContainer} />
         <Route path={navigation.profile.pathname} component={Profile} />

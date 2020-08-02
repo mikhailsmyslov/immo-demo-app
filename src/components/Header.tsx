@@ -59,7 +59,7 @@ const Header = (props: Props) => {
   }
   return (
     <HideOnScroll {...props}>
-      <AppBar>
+      <AppBar data-testid="header">
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
