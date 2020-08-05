@@ -1,5 +1,5 @@
 // @ts-check
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Formik, Form, Field, FormikHelpers } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { noop } from 'lodash'
@@ -9,7 +9,6 @@ import { CircularProgress, Button } from '@material-ui/core'
 import { TextField } from 'formik-material-ui'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { AxiosResponse } from 'axios'
-import i18n from 'i18next'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,12 +40,6 @@ interface IProps {
   onFailure?: (err: Error) => void
   className?: string
 }
-
-const ChannelNameSchema = Yup.object().shape({
-  login: Yup.string().required(i18n.t('errors.required')),
-  password: Yup.string().required(i18n.t('errors.required'))
-})
-
 const LoginForm: React.FC<IProps> = (props) => {
   const {
     onSubmit = () => Promise.resolve({} as AxiosResponse),
@@ -55,6 +48,16 @@ const LoginForm: React.FC<IProps> = (props) => {
     className
   } = props
   const { t } = useTranslation()
+
+  const ValidationSchema = useMemo(
+    () =>
+      Yup.object().shape({
+        login: Yup.string().required(t('errors.required')),
+        password: Yup.string().required(t('errors.required'))
+      }),
+    []
+  )
+
   const classes = useStyles()
   const initialValues: FormValues = { login: '', password: '' }
 
@@ -79,7 +82,7 @@ const LoginForm: React.FC<IProps> = (props) => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={ChannelNameSchema}
+      validationSchema={ValidationSchema}
     >
       {({ isSubmitting }) => (
         <Form className={formClasses}>
