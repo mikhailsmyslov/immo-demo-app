@@ -36,7 +36,7 @@ const ProfileContainer: React.FC<Props> = (props) => {
         handleError(err)
       })
     }
-  }, [dispatch, handleError, profile])
+  }, [])
 
   return (
     <Container disableGutters>

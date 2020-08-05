@@ -26,9 +26,10 @@ const ProtectedRoute: React.FC<
       enqueueSnackbar(t('errors.unauthorized'), { variant: 'warning' })
       histrory.push(navigation.login.pathname, { from: pathname })
     }
-  }, [enqueueSnackbar, histrory, isAuth, pathname, t])
+  }, [])
 
   if ([null, false].includes(isAuth)) return null
+
   return (
     <Route
       render={(props: RouteComponentProps) => <Component {...props} />}

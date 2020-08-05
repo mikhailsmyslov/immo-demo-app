@@ -19,7 +19,7 @@ import {
 import navigation, { navBarTabsSet } from '../navigation'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState, actions } from '../store'
+import { actions } from '../store'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
@@ -27,7 +27,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import KeyboardArrowRightOutlinedIcon from '@material-ui/icons/KeyboardArrowRightOutlined'
-import { isAppLoadingSelector } from '../selectors'
+import { isAppLoadingSelector, isAuthSelector } from '../selectors'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import useErrorHandler from '../hooks/useErrorHandler'
 import logger from '../helper/logger'
@@ -52,7 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
     scrollTopButton: {
       position: 'fixed',
       bottom: theme.spacing(2),
-      right: theme.spacing(2)
+      right: theme.spacing(2),
+      opacity: 0.75,
+      zIndex: 1200
     }
   })
 )
@@ -146,17 +148,23 @@ const Header = (props: Props) => {
   const history = useHistory()
   const { pathname } = useLocation()
   const dispatch = useDispatch()
-  const isAuth = useSelector((state: RootState) => state.app.isAuth)
+  const isAuth = useSelector(isAuthSelector)
   const handleError = useErrorHandler()
-  const handleAuthButtonClick = async () => {
+  const handleLogoutBtnClick = async () => {
     try {
       dispatch(actions.performLogout())
-      history.push(navigation.login.pathname)
+      history.push(navigation.main.pathname)
     } catch (err) {
       log(err)
       handleError(err)
     }
   }
+  const handleLoginBtnClick = () => history.push(navigation.login.pathname)
+
+  const handleAuthButtonClick = isAuth
+    ? handleLogoutBtnClick
+    : handleLoginBtnClick
+
   const tabsValue = pathname === navigation.login.pathname ? false : pathname
   return (
     <>

@@ -34,7 +34,7 @@ const NewsContainer: React.FC<Props> = (props) => {
         handleError(err)
       })
     }
-  }, [dispatch, handleError, news])
+  }, [])
 
   return (
     <Container disableGutters>

@@ -52,7 +52,7 @@ const Home = () => {
         log(err)
       })
     }
-  }, [carouselItems, dispatch])
+  }, [])
 
   return (
     <Container className={classes.container} disableGutters>
