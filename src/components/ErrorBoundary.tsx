@@ -37,7 +37,7 @@ class ErrorBoundary extends React.Component<IProps & WithTranslation, IState> {
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError(_error: Error) {
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true }
   }
 
