@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, CircularProgress } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import cn from 'classnames'
 import { Route, Switch } from 'react-router-dom'
@@ -9,8 +9,6 @@ import NewsContainer from './NewsContainer'
 import Home from './Home'
 import Page404 from './Page404'
 import LoginContainer from './LoginContainer'
-import { isAppLoadingSelector } from '../selectors'
-import { useSelector } from 'react-redux'
 import ProtectedRoute from './ProtectedRoute'
 import ErrorBoundary from './ErrorBoundary'
 
@@ -38,20 +36,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const Main = (props: Props) => {
   const { className } = props
   const classes = useStyles()
-  const isLoading = useSelector(isAppLoadingSelector)
   const rootClasses = cn(
     {
       [classes.root]: true
     },
     className
   )
-  if (isLoading)
-    return (
-      <Container className={classes.screenSaver} data-testid="main">
-        <CircularProgress color="secondary" />
-      </Container>
-    )
-
   return (
     <Container className={rootClasses} data-testid="main">
       <ErrorBoundary>

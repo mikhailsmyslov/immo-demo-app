@@ -12,8 +12,9 @@ import logger from '../helper/logger'
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
-import { isAuthSelector } from '../selectors'
+import { isAuthSelector, isAppLoadingSelector } from '../selectors'
 import { isNull } from 'util'
+import ScreenSaver from './ScreenSaver'
 
 const log = logger('layout')
 
@@ -65,13 +66,18 @@ const Layout = () => {
   }, [])
 
   const isAuth = useSelector(isAuthSelector)
+  const isLoading = useSelector(isAppLoadingSelector)
 
-  const shouldRenderMainContent = !isNull(isAuth)
+  const shouldRenderMainContent = !isNull(isAuth) && !isLoading
 
   return (
     <Container className={classes.root} disableGutters={true} maxWidth={false}>
       <Header />
-      {shouldRenderMainContent && <Main className={classes.main} />}
+      {shouldRenderMainContent ? (
+        <Main className={classes.main} />
+      ) : (
+        <ScreenSaver />
+      )}
       <Footer />
     </Container>
   )
