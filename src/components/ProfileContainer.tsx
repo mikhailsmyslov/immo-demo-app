@@ -36,6 +36,7 @@ const ProfileContainer: React.FC<Props> = (props) => {
         handleError(err)
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

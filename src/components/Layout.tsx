@@ -47,13 +47,14 @@ const Layout = () => {
   useEffect(() => {
     const tKey = find(routes, { pathname })?.text
     document.title = tKey ? t([tKey, 'immo']) : 'immo'
-  }, [pathname])
+  }, [pathname, t])
 
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY)
     dispatch(actions.validateSession(token)).catch((err: Error) => {
       log(err)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

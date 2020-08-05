@@ -55,7 +55,7 @@ const LoginForm: React.FC<IProps> = (props) => {
         login: Yup.string().required(t('errors.required')),
         password: Yup.string().required(t('errors.required'))
       }),
-    []
+    [t]
   )
 
   const classes = useStyles()
