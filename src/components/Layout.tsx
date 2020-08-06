@@ -28,8 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: '100vw',
       minHeight: '100vh',
       maxWidth: '100%',
-      height: '100%',
-      width: '100%',
       background: 'whitesmoke'
     },
     main: {

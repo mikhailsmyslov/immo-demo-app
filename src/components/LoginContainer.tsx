@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      height: '100%'
+      flex: '1 1'
     },
     form: {
       width: 400,

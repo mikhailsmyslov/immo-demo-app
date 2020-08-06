@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'space-around'
+      justifyContent: 'flex-start'
     },
     title: {
       marginBottom: '2rem'

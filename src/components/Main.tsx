@@ -19,6 +19,7 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      display: 'flex',
       paddingTop: '1.5rem',
       paddingBottom: '1.5rem'
     },

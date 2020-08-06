@@ -2,8 +2,7 @@ import React from 'react'
 import {
   render,
   screen,
-  waitForElementToBeRemoved,
-  queryByTestId
+  waitForElementToBeRemoved
 } from '@testing-library/react'
 import App from '../App'
 
