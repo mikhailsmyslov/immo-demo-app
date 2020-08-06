@@ -38,11 +38,8 @@ const NewsContainer: React.FC<Props> = (props) => {
   }, [])
 
   return (
-    <Container disableGutters>
-      <Typography
-        variant="h5"
-        style={{ marginBottom: '2rem', marginLeft: '2rem' }}
-      >
+    <Container disableGutters style={{ width: 'auto' }}>
+      <Typography variant="h5" style={{ marginBottom: '2rem' }}>
         {t('news')}
         <Divider />
       </Typography>
